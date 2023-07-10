@@ -1,4 +1,4 @@
-# tailwind-integrated
+# VUE post feed reader
 
 ## Project setup
 ```
