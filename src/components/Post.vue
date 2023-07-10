@@ -50,6 +50,9 @@ import { ChevronUpIcon, ChevronDownIcon } from '@heroicons/vue/24/solid';
 
 export default {
   name: 'post-component',
+  components: {
+    ChevronUpIcon, ChevronDownIcon
+  },
   props: {
     post: {
       type: Object,

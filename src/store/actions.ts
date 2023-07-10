@@ -27,7 +27,7 @@ const actions = {
           return postToUpdate;
         });
         commit(SET_POSTS, { data: firstNPostsWithOrderIndex });
-      });
+      }).catch((err)=> {console.log(err)});
   },
   reOrderPosts(
     { commit, getters }: ActionContext<State, State>,

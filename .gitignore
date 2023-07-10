@@ -1,0 +1,10 @@
+# ide
+.vscode
+.history
+.idea/
+
+# dependencies
+/node_modules
+
+# misc
+.DS_Store
