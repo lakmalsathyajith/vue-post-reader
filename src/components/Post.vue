@@ -2,7 +2,7 @@
 <template>
   <div class="animate-bounce-slow text-left mb-5 bg-white rounded shadow-md p-4 pt-0 pb-0 flex items-center justify-between min-h-[80px]">
             <div>
-              <p class="text-gray-700"><strong>{{post.index}}</strong>. {{post.title}}</p>
+              <p class="text-gray-700">Post {{post.id}}</p>
             </div>
               <div class="flex align-center flex-col justify-center h-[60px] " :class="{'justify-between' : !!sortUp && !!sortDown }">
                 <ChevronUpIcon
@@ -45,13 +45,13 @@
           </div>
 </template>
 <script lang="ts">
-// eslint-disable-next-line @typescript-eslint/no-unused-vars, no-unused-vars
+
 import { ChevronUpIcon, ChevronDownIcon } from '@heroicons/vue/24/solid';
 
 export default {
   name: 'post-component',
   components: {
-    ChevronUpIcon, ChevronDownIcon
+    ChevronUpIcon, ChevronDownIcon,
   },
   props: {
     post: {

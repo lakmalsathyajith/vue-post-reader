@@ -53,23 +53,28 @@ export default defineComponent({
     CommittedPostComponent,
   },
   setup() {
+    // Take the given post up by one level
     const sortUp = (originalIndex:number, index:number) => {
       store.dispatch('reOrderPosts', { originalIndex, index });
     };
 
+    // Take the given post down by one level
     const sortDown = (originalIndex:number, index:number) => {
       store.dispatch('reOrderPosts', { originalIndex, index, upShift: false });
     };
 
+    // Restore the post list from history element.
     const restoreState = (index:number) => {
       store.dispatch('restoreHistoryElement', index);
     };
 
+    // Take the first number of posts which is stored in the store.
     const randomPosts = computed(():Post[] => {
       const { state: { posts = [] } = {} } = store;
       return posts;
     });
 
+    // Get the list of history elements
     const postHistory = computed(():HistoryElement[] => {
       const { state: { committedPosts = [] } = {} } = store;
       return committedPosts;
@@ -79,6 +84,7 @@ export default defineComponent({
       store.dispatch('getPosts');
     });
 
+    // Subscribe for selected mutations to create relevant history element.
     store.subscribe(subscribers.historySubscriber);
 
     return {
@@ -92,7 +98,6 @@ export default defineComponent({
 });
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
 
 .container-backdrop {

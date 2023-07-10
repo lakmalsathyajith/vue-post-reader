@@ -1,22 +1,12 @@
 import { ActionContext } from 'vuex';
-import { State } from '@/types/types';
-import { HistoryElement, Post } from '@/types/interfaces';
+import { State, reOrderArgs } from '@/types/types';
+import { Post } from '@/types/interfaces';
 import axiosClient from '../httpClient';
 import { SET_POSTS, SET_HISTORY_ELEMENTS, RESTORE_HISTORY } from './types/mutations';
 import { shiftArrayElementByGivenValue, generateHistoryElementForPosts } from '../helpers/utils';
 
-type reOrderArgs = {
-  originalIndex : number,
-  index: number,
-  upShift?: boolean
-};
-
-export type setPostArgs = {
-  data: Post[],
-  historyElement: HistoryElement
-};
-
 const actions = {
+  // Get all posts from the api
   getPosts({ commit }: ActionContext<State, State>) {
     axiosClient.get('posts')
       .then(({ data }) => {
@@ -27,8 +17,13 @@ const actions = {
           return postToUpdate;
         });
         commit(SET_POSTS, { data: firstNPostsWithOrderIndex });
-      }).catch((err)=> {console.log(err)});
+      }).catch(() => {
+        // eslint-disable-next-line no-console
+        console.error('Error while fetching posts.');
+        commit(SET_POSTS, { data: [] });
+      });
   },
+  // Reorder the post list by given values
   reOrderPosts(
     { commit, getters }: ActionContext<State, State>,
     { originalIndex, index, upShift = true }: reOrderArgs,
@@ -39,6 +34,7 @@ const actions = {
     const historyElement = generateHistoryElementForPosts(oldState, originalIndex, index, upShift);
     commit(SET_POSTS, { data: shiftedPosts, historyElement });
   },
+  // Persist the post list from the history element
   restoreHistoryElement({ commit, getters }: ActionContext<State, State>, index:number) {
     const historyArray = [...getters.getHistory];
     const historyElement = historyArray[index];
