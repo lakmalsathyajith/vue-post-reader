@@ -7,7 +7,7 @@
               <div class="flex align-center flex-col justify-center h-[60px] " :class="{'justify-between' : !!sortUp && !!sortDown }">
                 <ChevronUpIcon
                   v-if="sortUp"
-                  class="h-4 w-4 ml-3 cursor-pointer hover:opacity-60 dark:hover:opacity-5"
+                  class="sort-up h-4 w-4 ml-3 cursor-pointer hover:opacity-60 dark:hover:opacity-5"
                   @click="sortUp"
                 >
                   <svg
@@ -24,7 +24,7 @@
                   </svg>
                 </ChevronUpIcon>
                 <ChevronDownIcon
-                  class="h-4 w-4 ml-3 cursor-pointer hover:opacity-60 dark:hover:opacity-5"
+                  class="sort-down h-4 w-4 ml-3 cursor-pointer hover:opacity-60 dark:hover:opacity-5"
                   @click="sortDown"
                   v-if="sortDown"
                 >
