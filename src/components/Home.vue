@@ -100,7 +100,6 @@ export default defineComponent({
 <style scoped lang="scss">
 .container-backdrop {
   position: relative;
-  overflow: hidden;
 }
 
 .container-backdrop:before {
