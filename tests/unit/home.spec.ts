@@ -79,11 +79,13 @@ describe('Home.vue', () => {
     const wrapper = shallowMount(Home);
     expect(wrapper.text()).toMatch(msg);
   });
+
   it('renders home component committed post list heading.', () => {
     const msg = 'List of actions committed';
     const wrapper = shallowMount(Home);
     expect(wrapper.text()).toMatch(msg);
   });
+
   it('renders home component with 5 posts.', () => {
     const wrapper = mount(Home);
     expect(wrapper.findAllComponents(PostComponent)).toHaveLength(5);
@@ -95,10 +97,13 @@ describe('Home.vue', () => {
     let index = 0;
     for (const postComponent of postComponents) {
       await (async () => {
+        // when third post's up arrow button is clicked.
         if (index === 3) {
           const sortDownButton = postComponent.find('.sort-down');
           await sortDownButton.trigger('click');
         }
+
+        // when fourth post's down arrow button is clicked.
         if (index === 4) {
           const sortUpButton = postComponent.find('.sort-up');
           await sortUpButton.trigger('click');
@@ -109,16 +114,20 @@ describe('Home.vue', () => {
     }
     expect(wrapper.findAllComponents(CommittedPostComponent)).toHaveLength(2);
   });
+
   it('renders home component have no committed posts, when oldest history item is clicked.', async () => {
     const wrapper = mount(Home);
     const postComponents = wrapper.findAllComponents(PostComponent);
     let index = 0;
     for (const postComponent of postComponents) {
       await (async () => {
+        // when third post's up arrow button is clicked.
         if (index === 3) {
           const sortDownButton = postComponent.find('.sort-down');
           await sortDownButton.trigger('click');
         }
+
+        // when fourth post's down arrow button is clicked.
         if (index === 4) {
           const sortUpButton = postComponent.find('.sort-up');
           await sortUpButton.trigger('click');
@@ -127,12 +136,14 @@ describe('Home.vue', () => {
 
       index++;
     }
+    // Picking the last history item.
     const committedPostComponents = wrapper.findAllComponents(CommittedPostComponent);
     const lastCommittedPostComponent = committedPostComponents[committedPostComponents.length - 1];
     const lastCommittedPostComponentButton = lastCommittedPostComponent.find('button');
     await lastCommittedPostComponentButton.trigger('click');
     expect(wrapper.findAllComponents(CommittedPostComponent)).toHaveLength(0);
   });
+
   it('renders home component posts are in original order, when oldest history item is clicked.', async () => {
     const wrapper = mount(Home);
     const postComponents = wrapper.findAllComponents(PostComponent);
@@ -141,10 +152,13 @@ describe('Home.vue', () => {
     let index = 0;
     for (const postComponent of postComponents) {
       await (async () => {
+        // when third post's up arrow button is clicked.
         if (index === 3) {
           const sortDownButton = postComponent.find('.sort-down');
           await sortDownButton.trigger('click');
         }
+
+        // when fourth post's down arrow button is clicked.
         if (index === 4) {
           const sortUpButton = postComponent.find('.sort-up');
           await sortUpButton.trigger('click');
@@ -153,14 +167,18 @@ describe('Home.vue', () => {
 
       index++;
     }
+
+    // Picking the last history item.
     const committedPostComponents = wrapper.findAllComponents(CommittedPostComponent);
     const lastCommittedPostComponent = committedPostComponents[committedPostComponents.length - 1];
     const lastCommittedPostComponentButton = lastCommittedPostComponent.find('button');
     await lastCommittedPostComponentButton.trigger('click');
 
+    // Restored posts after time travel is clicked.
     const postComponentsAfterRestore = wrapper.findAllComponents(PostComponent);
     const postComponentsAfterRestoreOrder = postComponentsAfterRestore.map((post) => post.find('p').text());
 
+    // assert wether the restored posts are in original order.
     expect(originalOrder).toEqual(postComponentsAfterRestoreOrder);
   });
 
@@ -179,6 +197,8 @@ describe('Home.vue', () => {
           const sortUpButton = postComponent.find('.sort-up');
           await sortUpButton.trigger('click');
         }
+
+        // get the order when the second iteration is happened.
         if (index === 2) {
           originalOrder = wrapper.findAllComponents(PostComponent).map((post) => post.find('p').text());
         }
@@ -187,12 +207,14 @@ describe('Home.vue', () => {
       index++;
     }
 
+    // Picking the the relevant history item. when `originalOrder` is recorded.
     const committedPostComponents = wrapper.findAllComponents(CommittedPostComponent);
     const lastCommittedPostComponentButton = committedPostComponents[3].find('button');
     await lastCommittedPostComponentButton.trigger('click');
     const postComponentsAfterRestore = wrapper.findAllComponents(PostComponent);
     const postComponentsAfterRestoreOrder = postComponentsAfterRestore.map((post) => post.find('p').text());
 
+    // assert wether the restored posts are in original order.
     expect(originalOrder).toEqual(postComponentsAfterRestoreOrder);
   });
 });
