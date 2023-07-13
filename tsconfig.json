@@ -29,7 +29,10 @@
     "src/store/mutations.ts",
     "src/store/index.ts",
     "src/store/getters.ts",
-    "src/store/actions.ts"
+    "src/store/actions.ts",
+    "tailwind.config.js",
+    ".eslintrc.js",
+    "postcss.config.js"
   ],
   "exclude": ["node_modules"]
 }

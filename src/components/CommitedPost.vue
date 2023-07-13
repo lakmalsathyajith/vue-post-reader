@@ -1,10 +1,15 @@
 <!-- eslint-disable max-len -->
 <template>
-  <div class="animate-bounce-slow border-b-2 bg-white rounded shadow-md p-4 flex items-center justify-between">
+  <div
+    class="animate-bounce-slow bg-white mb-[1px] rounded shadow-md p-4 flex items-center justify-between"
+  >
     <div>
       <p class="text-gray-700">{{ committedPost.metaData }}</p>
     </div>
-    <button @click="restoreState" class="text-[#334B3F] bg-[#2DFF7E] hover:bg-[#2DFF7E]/90 font-bold py-2 px-4 rounded">
+    <button
+      @click="restoreState"
+      class="text-reset-button-text bg-reset-button hover:bg-reset-button/90 font-bold py-2 px-4 rounded"
+    >
       Time travel
     </button>
   </div>
@@ -18,7 +23,7 @@ export default {
       required: true,
     },
     restoreState: {
-      type: Function,
+      type: Function || undefined,
     },
   },
 };
